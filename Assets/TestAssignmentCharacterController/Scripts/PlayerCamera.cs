@@ -22,7 +22,6 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         _mouseInput = ReadInput();
-        Debug.Log(_mouseInput);
     }
 
     private void FixedUpdate()
