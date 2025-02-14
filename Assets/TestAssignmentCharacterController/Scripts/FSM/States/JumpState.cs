@@ -32,7 +32,11 @@ namespace FsmScripts.States
 
         public override void FixedUpdate()
         {
-            if (IsOnGround() && _velocity > 0)
+            if (IsOnGround() && _velocity > 0 && _direction == Vector2.zero)
+            {
+                _fsm.SetState<IdleState>();
+            }
+            else if(IsOnGround() && _velocity > 0)
             {
                 _fsm.SetState<RunState>();
             }

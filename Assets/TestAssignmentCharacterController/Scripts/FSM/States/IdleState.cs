@@ -13,6 +13,11 @@ namespace FsmScripts.States
                 _fsm.SetState<RunState>();
             }
 
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                _fsm.SetState<JumpState>();
+            }
+
             Debug.Log("IdleState");
         }
 
