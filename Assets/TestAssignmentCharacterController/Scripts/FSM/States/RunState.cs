@@ -10,6 +10,7 @@ namespace FsmScripts.States
         private float _gravity = 9.81f;
         private float _velocity = 0;
         private float _groundCheckSphereRadius = 0.1f;
+        private float _interpolationCoefficient = 0.3f;
         private Vector2 _direction;
 
         public RunState(Fsm fsm, CharacterController characterController) : base(fsm)
@@ -61,6 +62,8 @@ namespace FsmScripts.States
         {
             Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
             _characterController.Move(directionV3);
+
+            _characterController.transform.forward = Vector3.Lerp(_characterController.transform.forward, directionV3.normalized, _interpolationCoefficient);
         }
 
         private bool IsOnGround()
