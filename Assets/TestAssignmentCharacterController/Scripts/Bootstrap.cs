@@ -5,8 +5,10 @@ using FsmScripts.States;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] CharacterController _characterController;
+    [SerializeField] PlayerAnimations _playerAnimations;
+    [SerializeField] PlayerContext _playerContext;
 
-    Fsm _fsm;
+    private Fsm _fsm;
 
     private void Awake()
     {
@@ -17,6 +19,9 @@ public class Bootstrap : MonoBehaviour
         _fsm.AddState(new JumpState(_fsm, _characterController));
 
         _fsm.SetState<IdleState>();
+
+
+        _playerContext.Init(_fsm, _playerAnimations);
     }
 
     private void Update()

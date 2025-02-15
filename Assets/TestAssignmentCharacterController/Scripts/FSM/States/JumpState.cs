@@ -21,6 +21,7 @@ namespace FsmScripts.States
 
         public override void Enter()
         {
+            base.Enter();
             Jump();
         }
 

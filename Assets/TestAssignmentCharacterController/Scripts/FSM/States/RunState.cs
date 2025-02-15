@@ -61,6 +61,7 @@ namespace FsmScripts.States
         private void Move(Vector2 direction)
         {
             Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
+            // directionV3 = Quaternion.Euler(0, 90, 0) * directionV3;
             _characterController.Move(directionV3);
 
             _characterController.transform.forward = Vector3.Lerp(_characterController.transform.forward, directionV3.normalized, _interpolationCoefficient);

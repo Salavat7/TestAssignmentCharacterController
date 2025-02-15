@@ -16,7 +16,7 @@ namespace FsmScripts
 
         public void AddState(State state)
         {
-            if(_states.TryAdd(state.GetType(), state) == false)
+            if (_states.TryAdd(state.GetType(), state) == false)
             {
                 throw new Exception("You're trying add state of type already existing in FSM");
             }
@@ -26,12 +26,12 @@ namespace FsmScripts
         {
             var type = typeof(T);
 
-            if(_currentState != null && _currentState.GetType() == type)
+            if (_currentState != null && _currentState.GetType() == type)
             {
                 return;
             }
 
-            if(_states.TryGetValue(type, out var newState))
+            if (_states.TryGetValue(type, out var newState))
             {
                 _currentState?.Exit();
                 _currentState = newState;
@@ -41,6 +41,14 @@ namespace FsmScripts
             {
                 throw new Exception($"FSM haven't {type} state");
             }
+        }
+
+        public State GetState<T>() where T : State
+        {
+            if (!_states.TryGetValue(typeof(T), out State state))
+                throw new ArgumentException($"There is no state of {typeof(T)} in state machine");
+
+            return state;
         }
 
         public void Update()
