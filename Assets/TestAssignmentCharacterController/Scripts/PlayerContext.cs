@@ -12,12 +12,12 @@ public class PlayerContext : MonoBehaviour
         _fsm = fsm;
         _animations = playerAnimations;
 
-        _fsm.GetState<RunState>().Entered += () => _animations.Run = true;
-        _fsm.GetState<RunState>().Exited += () => _animations.Run = false;
-        _fsm.GetState<JumpState>().Entered += () => _animations.Jump = true;
-        _fsm.GetState<JumpState>().Exited += () => _animations.Jump = false;
-        _fsm.GetState<FallState>().Entered += () => _animations.Fall = true;
-        _fsm.GetState<FallState>().Exited += () => _animations.Fall = false;
+        _fsm.GetState<RunState>().Entered += OnRunStateEntered;
+        _fsm.GetState<RunState>().Exited += OnRunStateExited;
+        _fsm.GetState<JumpState>().Entered += OnJumpStateEntered;
+        _fsm.GetState<JumpState>().Exited += OnJumpStateExited;
+        _fsm.GetState<FallState>().Entered += OnFallStateEntered;
+        _fsm.GetState<FallState>().Exited += OnFallStateExited;
     }
 
     private void Update()
@@ -29,4 +29,22 @@ public class PlayerContext : MonoBehaviour
     {
         _fsm.FixedUpdate();
     }
+
+    private void OnRunStateEntered() => _animations.Run = true;
+    private void OnRunStateExited() => _animations.Run = false;
+    private void OnJumpStateEntered() => _animations.Jump = true;
+    private void OnJumpStateExited() => _animations.Jump = false;
+    private void OnFallStateEntered() => _animations.Fall = true;
+    private void OnFallStateExited() => _animations.Fall = false;
+
+    private void OnDestroy()
+    {
+        _fsm.GetState<RunState>().Entered -= OnRunStateEntered;
+        _fsm.GetState<RunState>().Exited -= OnRunStateExited;
+        _fsm.GetState<JumpState>().Entered -= OnJumpStateEntered;
+        _fsm.GetState<JumpState>().Exited -= OnJumpStateExited;
+        _fsm.GetState<FallState>().Entered -= OnFallStateEntered;
+        _fsm.GetState<FallState>().Exited -= OnFallStateExited;
+    }
+
 }
