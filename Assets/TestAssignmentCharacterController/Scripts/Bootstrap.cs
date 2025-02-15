@@ -14,19 +14,7 @@ public class Bootstrap : MonoBehaviour
     private void Awake()
     {
         _fsm = FsmInit(_characterController, _playerCamera);
-
-
         _playerContext.Init(_fsm, _playerAnimations);
-    }
-
-    private void Update()
-    {
-        _fsm.Update();
-    }
-
-    private void FixedUpdate()
-    {
-        _fsm.FixedUpdate();
     }
 
     private Fsm FsmInit(CharacterController characterController, PlayerCamera playerCamera)

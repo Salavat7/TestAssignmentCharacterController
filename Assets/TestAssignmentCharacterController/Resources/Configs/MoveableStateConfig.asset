@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoveableStateConfig
   m_EditorClassIdentifier: 
   <Velocity>k__BackingField: 0
-  <Speed>k__BackingField: 0
-  <Gravity>k__BackingField: 0
-  <GroundCheckSphereRadius>k__BackingField: 0
-  <InterpolationCoefficient>k__BackingField: 0
+  <Speed>k__BackingField: 5
+  <Gravity>k__BackingField: 9.81
+  <GroundCheckSphereRadius>k__BackingField: 0.1
+  <InterpolationCoefficient>k__BackingField: 0.3

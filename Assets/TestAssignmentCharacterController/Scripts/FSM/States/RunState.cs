@@ -19,11 +19,6 @@ namespace FsmScripts.States
         {
             _direction = ReadInput();
 
-            if (_direction == Vector2.zero)
-            {
-                _fsm.SetState<IdleState>();
-            }
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _fsm.SetState<JumpState>();
@@ -34,6 +29,11 @@ namespace FsmScripts.States
 
         public override void FixedUpdate()
         {
+            if (_direction == Vector2.zero && IsOnGround() == true)
+            {
+                _fsm.SetState<IdleState>();
+            }
+
             if (IsOnGround())
             {
                 _velocity = 0;
