@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 namespace FsmScripts.States
@@ -12,11 +11,25 @@ namespace FsmScripts.States
         protected float _gravity;
         protected float _groundCheckSphereRadius;
         protected float _interpolationCoefficient;
+        protected Vector2 _direction;
 
         public MoveableState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle) : base(fsm)
         {
             _characterController = characterController;
             _angle = angle;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            _direction = ReadInput();
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            ApplyGravity();
+            Move(_direction);
         }
 
         protected Vector2 ReadInput()

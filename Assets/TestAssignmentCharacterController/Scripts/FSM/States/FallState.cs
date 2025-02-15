@@ -4,31 +4,28 @@ namespace FsmScripts.States
 {
     public class FallState : MoveableState
     {
-        private Vector2 _direction;
+        private float _velocityToStartFall;
 
-        public FallState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, angle)
+        public FallState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, FallStateConfig fallStateConfig) : base(fsm, characterController, angle)
         {
-            _velocity = moveableStateConfig.Velocity;
-            _speed = moveableStateConfig.Speed;
-            _gravity = moveableStateConfig.Gravity;
-            _groundCheckSphereRadius = moveableStateConfig.GroundCheckSphereRadius;
-            _interpolationCoefficient = moveableStateConfig.InterpolationCoefficient;
+            _speed = fallStateConfig.Speed;
+            _gravity = fallStateConfig.Gravity;
+            _groundCheckSphereRadius = fallStateConfig.GroundCheckSphereRadius;
+            _interpolationCoefficient = fallStateConfig.InterpolationCoefficient;
+            _velocityToStartFall = fallStateConfig.VelocityToStartFall;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _velocity = 2;
-        }
-
-        public override void Update()
-        {
-            _direction = ReadInput();
+            _velocity = _velocityToStartFall;
         }
 
         public override void FixedUpdate()
         {
-            if (_direction == Vector2.zero && IsOnGround() == true)
+            base.FixedUpdate();
+
+            if (IsOnGround() && _direction == Vector2.zero)
             {
                 _fsm.SetState<IdleState>();
             }
@@ -36,9 +33,6 @@ namespace FsmScripts.States
             {
                 _fsm.SetState<RunState>();
             }
-
-            ApplyGravity();
-            Move(_direction);
         }
     }
 
