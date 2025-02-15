@@ -5,17 +5,19 @@ namespace FsmScripts.States
     public class RunState : State
     {
         private readonly CharacterController _characterController;
+        private readonly PlayerCamera _playerCamera;
 
-        private float _speed = 10;
+        private float _speed = 5;
         private float _gravity = 9.81f;
         private float _velocity = 0;
         private float _groundCheckSphereRadius = 0.1f;
         private float _interpolationCoefficient = 0.3f;
         private Vector2 _direction;
 
-        public RunState(Fsm fsm, CharacterController characterController) : base(fsm)
+        public RunState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera) : base(fsm)
         {
             _characterController = characterController;
+            _playerCamera = playerCamera;
         }
 
         public override void Update()
@@ -61,6 +63,7 @@ namespace FsmScripts.States
         private void Move(Vector2 direction)
         {
             Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
+            directionV3 = Quaternion.Euler(0, _playerCamera.CurrentRotationY, 0) * directionV3;
             // directionV3 = Quaternion.Euler(0, 90, 0) * directionV3;
             _characterController.Move(directionV3);
 

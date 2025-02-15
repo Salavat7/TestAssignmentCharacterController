@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    public float CurrentRotationY => _currentRotation.y;
+
     [SerializeField] private Transform _player;
     [SerializeField] private float _offset;
     [SerializeField] private float _sensitivity;

@@ -4,9 +4,10 @@ using FsmScripts.States;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] CharacterController _characterController;
-    [SerializeField] PlayerAnimations _playerAnimations;
-    [SerializeField] PlayerContext _playerContext;
+    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private PlayerAnimations _playerAnimations;
+    [SerializeField] private PlayerContext _playerContext;
+    [SerializeField] private PlayerCamera _playerCamera;
 
     private Fsm _fsm;
 
@@ -15,8 +16,8 @@ public class Bootstrap : MonoBehaviour
         _fsm = new Fsm();
 
         _fsm.AddState(new IdleState(_fsm));
-        _fsm.AddState(new RunState(_fsm, _characterController));
-        _fsm.AddState(new JumpState(_fsm, _characterController));
+        _fsm.AddState(new RunState(_fsm, _characterController, _playerCamera));
+        _fsm.AddState(new JumpState(_fsm, _characterController, _playerCamera));
 
         _fsm.SetState<IdleState>();
 
