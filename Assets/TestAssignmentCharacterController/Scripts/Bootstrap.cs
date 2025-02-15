@@ -27,6 +27,7 @@ public class Bootstrap : MonoBehaviour
         fsm.AddState(new IdleState(fsm));
         fsm.AddState(new RunState(fsm, characterController, playerCamera, moveableStateConfig));
         fsm.AddState(new JumpState(fsm, characterController, playerCamera, JumpStateConfig));
+        fsm.AddState(new FallState(fsm, characterController, playerCamera, moveableStateConfig));
 
         fsm.SetState<IdleState>();
 

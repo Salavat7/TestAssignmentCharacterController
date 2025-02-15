@@ -6,4 +6,6 @@ public class PlayerAnimations : MonoBehaviour
 
     public bool Run { set => _animator.SetBool("Run", value); }
     public bool Jump { set => _animator.SetBool("Jump", value); }
+    public bool Fall { set => _animator.SetBool("Fall", value); }
+
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace FsmScripts.States
 {
-    public class RunState : MoveableState
+    public class FallState : MoveableState
     {
         private Vector2 _direction;
 
-        public RunState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, playerCamera)
+        public FallState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, playerCamera)
         {
             _velocity = moveableStateConfig.Velocity;
             _speed = moveableStateConfig.Speed;
@@ -15,16 +15,15 @@ namespace FsmScripts.States
             _interpolationCoefficient = moveableStateConfig.InterpolationCoefficient;
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            _velocity = 2;
+        }
+
         public override void Update()
         {
             _direction = ReadInput();
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _fsm.SetState<JumpState>();
-            }
-
-            // Debug.Log("RunState");
         }
 
         public override void FixedUpdate()
@@ -33,18 +32,14 @@ namespace FsmScripts.States
             {
                 _fsm.SetState<IdleState>();
             }
-
-            if (IsOnGround())
+            else if (IsOnGround())
             {
-                _velocity = 0;
-            }
-            else
-            {
-                _fsm.SetState<FallState>();
+                _fsm.SetState<RunState>();
             }
 
             ApplyGravity();
             Move(_direction);
         }
     }
+
 }

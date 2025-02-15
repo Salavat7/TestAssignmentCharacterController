@@ -16,6 +16,8 @@ public class PlayerContext : MonoBehaviour
         _fsm.GetState<RunState>().Exited += () => _animations.Run = false;
         _fsm.GetState<JumpState>().Entered += () => _animations.Jump = true;
         _fsm.GetState<JumpState>().Exited += () => _animations.Jump = false;
+        _fsm.GetState<FallState>().Entered += () => _animations.Fall = true;
+        _fsm.GetState<FallState>().Exited += () => _animations.Fall = false;
     }
 
     private void Update()
