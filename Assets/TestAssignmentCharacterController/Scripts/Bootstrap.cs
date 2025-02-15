@@ -17,7 +17,7 @@ public class Bootstrap : MonoBehaviour
         _playerContext.Init(_fsm, _playerAnimations);
     }
 
-    private Fsm FsmInit(CharacterController characterController, PlayerCamera playerCamera)
+    private Fsm FsmInit(CharacterController characterController, IProvideAbleAngle angle)
     {
         Fsm fsm = new Fsm();
 
@@ -25,9 +25,9 @@ public class Bootstrap : MonoBehaviour
         JumpStateConfig JumpStateConfig = Resources.Load<JumpStateConfig>("Configs/JumpStateConfig");
 
         fsm.AddState(new IdleState(fsm));
-        fsm.AddState(new RunState(fsm, characterController, playerCamera, moveableStateConfig));
-        fsm.AddState(new JumpState(fsm, characterController, playerCamera, JumpStateConfig));
-        fsm.AddState(new FallState(fsm, characterController, playerCamera, moveableStateConfig));
+        fsm.AddState(new RunState(fsm, characterController, angle, moveableStateConfig));
+        fsm.AddState(new JumpState(fsm, characterController, angle, JumpStateConfig));
+        fsm.AddState(new FallState(fsm, characterController, angle, moveableStateConfig));
 
         fsm.SetState<IdleState>();
 

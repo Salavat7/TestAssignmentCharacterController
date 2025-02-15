@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : MonoBehaviour, IProvideAbleAngle
 {
     public float CurrentRotationY => _currentRotation.y;
 

@@ -7,7 +7,7 @@ namespace FsmScripts.States
         private float _jumpHeight;
         private Vector2 _direction;
 
-        public JumpState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera, JumpStateConfig jumpStateConfig) : base(fsm, characterController, playerCamera)
+        public JumpState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, JumpStateConfig jumpStateConfig) : base(fsm, characterController, angle)
         {
             _velocity = jumpStateConfig.Velocity;
             _speed = jumpStateConfig.Speed;

@@ -6,17 +6,17 @@ namespace FsmScripts.States
     public abstract class MoveableState : State
     {
         protected readonly CharacterController _characterController;
-        protected readonly PlayerCamera _playerCamera;
+        protected readonly IProvideAbleAngle _angle;
         protected float _velocity;
         protected float _speed;
         protected float _gravity;
         protected float _groundCheckSphereRadius;
         protected float _interpolationCoefficient;
 
-        public MoveableState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera) : base(fsm)
+        public MoveableState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle) : base(fsm)
         {
             _characterController = characterController;
-            _playerCamera = playerCamera;
+            _angle = angle;
         }
 
         protected Vector2 ReadInput()
@@ -34,7 +34,7 @@ namespace FsmScripts.States
         protected void Move(Vector2 direction)
         {
             Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
-            directionV3 = Quaternion.Euler(0, _playerCamera.CurrentRotationY, 0) * directionV3;
+            directionV3 = Quaternion.Euler(0, _angle.CurrentRotationY, 0) * directionV3;
             _characterController.Move(directionV3);
 
             _characterController.transform.forward = Vector3.Lerp(_characterController.transform.forward, directionV3.normalized, _interpolationCoefficient);

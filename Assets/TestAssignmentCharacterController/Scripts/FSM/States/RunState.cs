@@ -6,7 +6,7 @@ namespace FsmScripts.States
     {
         private Vector2 _direction;
 
-        public RunState(Fsm fsm, CharacterController characterController, PlayerCamera playerCamera, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, playerCamera)
+        public RunState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, angle)
         {
             _velocity = moveableStateConfig.Velocity;
             _speed = moveableStateConfig.Speed;
