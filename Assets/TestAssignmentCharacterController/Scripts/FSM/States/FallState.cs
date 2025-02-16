@@ -6,7 +6,7 @@ namespace FsmScripts.States
     {
         private float _velocityToStartFall;
 
-        public FallState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, FallStateConfig fallStateConfig) : base(fsm, characterController, angle)
+        public FallState(Fsm fsm, CharacterController characterController, IInput iInput, FallStateConfig fallStateConfig) : base(fsm, characterController, iInput)
         {
             _speed = fallStateConfig.Speed;
             _gravity = fallStateConfig.Gravity;

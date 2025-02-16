@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdc336487f3c5d4188b2c2162c99732, type: 3}
   m_Name: FallStateConfig
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 0
-  <Gravity>k__BackingField: 0
-  <GroundCheckSphereRadius>k__BackingField: 0
-  <InterpolationCoefficient>k__BackingField: 0
-  <VelocityToStartFall>k__BackingField: 0
+  <Speed>k__BackingField: 4
+  <Gravity>k__BackingField: 9.81
+  <GroundCheckSphereRadius>k__BackingField: 0.1
+  <InterpolationCoefficient>k__BackingField: 0.3
+  <VelocityToStartFall>k__BackingField: 2

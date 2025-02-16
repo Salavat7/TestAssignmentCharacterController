@@ -5,7 +5,7 @@ namespace FsmScripts.States
     public abstract class MoveableState : State
     {
         protected readonly CharacterController _characterController;
-        protected readonly IProvideAbleAngle _angle;
+        protected readonly IInput _iInput;
         protected float _velocity;
         protected float _speed;
         protected float _gravity;
@@ -13,16 +13,10 @@ namespace FsmScripts.States
         protected float _interpolationCoefficient;
         protected Vector2 _direction;
 
-        public MoveableState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle) : base(fsm)
+        public MoveableState(Fsm fsm, CharacterController characterController, IInput iInput) : base(fsm)
         {
             _characterController = characterController;
-            _angle = angle;
-        }
-
-        public override void Update()
-        {
-            base.Update();
-            _direction = ReadInput();
+            _iInput = iInput;
         }
 
         public override void FixedUpdate()
@@ -32,10 +26,21 @@ namespace FsmScripts.States
             Move(_direction);
         }
 
-        protected Vector2 ReadInput()
+        public override void Enter()
         {
-            Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            return direction;
+            base.Enter();
+            _iInput.Moved += OnMoved;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _iInput.Moved -= OnMoved;
+        }
+
+        protected void OnMoved(Vector2 vector)
+        {
+            _direction = vector;
         }
 
         protected void ApplyGravity()
@@ -46,8 +51,7 @@ namespace FsmScripts.States
 
         protected void Move(Vector2 direction)
         {
-            Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
-            directionV3 = Quaternion.Euler(0, _angle.CurrentRotationY, 0) * directionV3;
+            Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed;
             _characterController.Move(directionV3);
 
             _characterController.transform.forward = Vector3.Lerp(_characterController.transform.forward, directionV3.normalized, _interpolationCoefficient);

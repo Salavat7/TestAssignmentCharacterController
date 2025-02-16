@@ -4,7 +4,7 @@ namespace FsmScripts.States
 {
     public class RunState : MoveableState
     {
-        public RunState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, angle)
+        public RunState(Fsm fsm, CharacterController characterController, IInput iInput, MoveableStateConfig moveableStateConfig) : base(fsm, characterController, iInput)
         {
             _speed = moveableStateConfig.Speed;
             _gravity = moveableStateConfig.Gravity;

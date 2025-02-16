@@ -6,7 +6,7 @@ namespace FsmScripts.States
     {
         private float _jumpHeight;
 
-        public JumpState(Fsm fsm, CharacterController characterController, IProvideAbleAngle angle, JumpStateConfig jumpStateConfig) : base(fsm, characterController, angle)
+        public JumpState(Fsm fsm, CharacterController characterController, IInput iInput, JumpStateConfig jumpStateConfig) : base(fsm, characterController, iInput)
         {
             _speed = jumpStateConfig.Speed;
             _gravity = jumpStateConfig.Gravity;

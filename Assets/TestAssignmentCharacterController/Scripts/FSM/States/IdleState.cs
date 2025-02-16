@@ -4,27 +4,54 @@ namespace FsmScripts.States
 {
     public class IdleState : State
     {
-        public IdleState(Fsm fsm) : base(fsm) { }
+        private readonly IInput _iInput;
+        private Vector2 _inputVector;
+        private bool _jump;
+
+        public IdleState(Fsm fsm, IInput iInput) : base(fsm) 
+        {
+            _iInput = iInput;
+            // _inputVector = Vector2.zero;
+            _jump = false;
+        }
 
         public override void Update()
         {
-            if(ReadInput() != Vector2.zero)
+            if(_inputVector != Vector2.zero)
             {
+                Debug.Log(_inputVector.x);
+                Debug.Log(_inputVector.y);
                 _fsm.SetState<RunState>();
             }
 
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(_jump)
             {
                 _fsm.SetState<JumpState>();
             }
-
-            // Debug.Log("IdleState");
         }
 
-        private Vector2 ReadInput()
+        public override void Enter()
         {
-            Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            return direction;
+            base.Enter();
+            _iInput.Moved += OnMoved;
+            _iInput.Jumped += OnJumped;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _iInput.Moved -= OnMoved;
+            _iInput.Jumped -= OnJumped;
+        }
+
+        private void OnMoved(Vector2 vector)
+        {
+            _inputVector = vector;
+        }
+
+        private void OnJumped(bool jump)
+        {
+            _jump = jump;
         }
     }
 }

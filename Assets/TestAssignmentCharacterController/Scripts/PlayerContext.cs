@@ -22,12 +22,12 @@ public class PlayerContext : MonoBehaviour
 
     private void Update()
     {
-        _fsm.Update();
+        _fsm?.Update();
     }
 
     private void FixedUpdate()
     {
-        _fsm.FixedUpdate();
+        _fsm?.FixedUpdate();
     }
 
     private void OnRunStateEntered() => _animations.Run = true;
