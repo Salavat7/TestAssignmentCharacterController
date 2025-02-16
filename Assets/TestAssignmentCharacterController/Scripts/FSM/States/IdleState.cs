@@ -17,8 +17,6 @@ namespace FsmScripts.States
             {
                 _fsm.SetState<JumpState>();
             }
-
-            // Debug.Log("IdleState");
         }
 
         private Vector2 ReadInput()
