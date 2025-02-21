@@ -51,7 +51,7 @@ namespace FsmScripts.States
 
         protected void Move(Vector2 direction)
         {
-            Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed;
+            Vector3 directionV3 = new Vector3(direction.x, 0, direction.y) * _speed * Time.fixedDeltaTime;
             _characterController.Move(directionV3);
 
             _characterController.transform.forward = Vector3.Lerp(_characterController.transform.forward, directionV3.normalized, _interpolationCoefficient);

@@ -14,7 +14,7 @@ namespace FsmScripts.States
 
         public override void Update()
         {
-            base.Update();
+            // base.Update();
 
             if (Input.GetKeyDown(KeyCode.Space))
             {

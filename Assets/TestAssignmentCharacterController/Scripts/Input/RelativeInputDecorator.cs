@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InputForCharacterController : IInput, IDisposable
+public class RelativeInputDecorator : IInput, IDisposable
 {
     public event Action<Vector2> Moved;
     public event Action<Vector2> Looked;
@@ -10,7 +10,7 @@ public class InputForCharacterController : IInput, IDisposable
     private IInput _input;
     private IProvideAbleAngle _angle;
 
-    public InputForCharacterController(IInput input, IProvideAbleAngle provideAbleAngle)
+    public RelativeInputDecorator(IInput input, IProvideAbleAngle provideAbleAngle)
     {
         _input = input;
         _angle = provideAbleAngle;
@@ -22,7 +22,7 @@ public class InputForCharacterController : IInput, IDisposable
 
     private void OnMoved(Vector2 move)
     {
-        Vector3 move3 = new Vector3(move.x, 0, move.y) * Time.fixedDeltaTime;
+        Vector3 move3 = new Vector3(move.x, 0, move.y);
         move3 = Quaternion.Euler(0, _angle.CurrentRotationY, 0) * move3;
         Moved?.Invoke(new Vector2(move3.x, move3.z));
     }

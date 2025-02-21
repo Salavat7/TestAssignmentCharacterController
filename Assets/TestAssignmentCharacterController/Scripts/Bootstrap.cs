@@ -11,13 +11,13 @@ public class Bootstrap : MonoBehaviour
 
     private Fsm _fsm;
     private DesktopInput _desktopInput;
-    private InputForCharacterController _inputForCharacterController;
+    private RelativeInputDecorator _relativeInputDecorator;
 
     private void Awake()
     {
         _desktopInput = new DesktopInput();
-        _inputForCharacterController = new InputForCharacterController(_desktopInput, _playerCamera);
-        _fsm = FsmInit(_characterController, _inputForCharacterController);
+        _relativeInputDecorator = new RelativeInputDecorator(_desktopInput, _playerCamera);
+        _fsm = FsmInit(_characterController, _relativeInputDecorator);
         _playerContext.Init(_fsm, _playerAnimations);
     }
 
@@ -46,6 +46,6 @@ public class Bootstrap : MonoBehaviour
 
     private void OnDestroy()
     {
-        _inputForCharacterController.Dispose();
+        _relativeInputDecorator.Dispose();
     }
 }
